@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jankenpon</title>
+</head>
+
+<body>
+    <script>
+        let options = ["Rock", "Paper", "Scissors"];
+
+        function random(num) {
+            return Math.floor(Math.random() * num);
+        }
+
+        function computerPlay() {
+            return options[random(3)]
+        }
+
+        function playGame(playerSelection, computerSelection) {
+            let playerMove = playerSelection.toLowerCase();
+            let computerMove = computerSelection.toLowerCase();
+            let isWin = false
+            let isDraw = false
+            if (computerMove == "rock") {
+                switch (playerMove) {
+                    case "paper":
+                        isWin = true;
+                        break;
+                    case "scissors":
+                        isWin = false;
+                        break;
+                    default:
+                        isDraw = true;
+                }
+            } else if (computerMove == "paper") {
+                switch (playerMove) {
+                    case "rock":
+                        isWin = false;
+                        break;
+                    case "scissors":
+                        isWin = true;
+                        break;
+                    default:
+                        isDraw = true;
+                }
+            } else if (computerMove == "scissors") {
+                switch (playerMove) {
+                    case "rock":
+                        isWin = true;
+                        break;
+                    case "paper":
+                        isWin = false;
+                        break;
+                    default:
+                        isDraw = true;
+                }
+            }
+            if (isDraw) {
+                return `I choose: ${capitalize(computerMove)}. It's a DRAW. let's play again!`
+            }
+
+            return isWin ? `You WIN! \n I choose: ${capitalize(computerMove)}. \n ${capitalize(playerMove)} beats ${capitalize(computerMove)}` : `You LOST! \n I choose: ${capitalize(computerMove)}. \n ${capitalize(computerMove)} beats ${capitalize(playerMove)}`
+        }
+
+        function game(loop) {
+            while (loop > 0) {
+                let playerMove = prompt("What's your move? Pleas type one of this: Rock, Paper, or Scissors");
+                if (!options.includes(capitalize(playerMove))) {
+                    alert("Wrong input. Please type the correct move.")
+                } else {
+                    alert(playGame(playerMove, computerPlay()))
+                    loop--
+                }
+            }
+        }
+
+        function capitalize(string) {
+            let lowerCase = string.toLowerCase();
+            let capFirstLetter = lowerCase[0].toUpperCase();
+            return capFirstLetter + lowerCase.slice(1);
+        }
+
+        game(5);
+
+    </script>
+
+</body>
+
+</html>
